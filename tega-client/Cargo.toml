@@ -1,0 +1,8 @@
+[package]
+name = "tega-client"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+reqwest = { version = "0.11.22", features = ["json", "tokio-rustls"], default-features = false }
+tega-types = { version = "0.0.0", path = "../tega-types" }
