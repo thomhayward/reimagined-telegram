@@ -113,7 +113,7 @@ impl MetersAggregates {
 		let mut index = 0..sinks.len();
 
 		iter::from_fn(move || {
-			while let Some(index) = index.next() {
+			for index in index.by_ref() {
 				if let Some(sink) = sinks[index] {
 					return Some(sink);
 				}
@@ -141,7 +141,7 @@ impl MetersAggregates {
 		let mut index = 0..sinks.len();
 
 		iter::from_fn(move || {
-			while let Some(index) = index.next() {
+			for index in index.by_ref() {
 				if let Some(sink) = sinks[index] {
 					return Some(sink);
 				}
