@@ -7,11 +7,19 @@ use std::{
 	path::{Path, PathBuf},
 };
 use tega_client::Client;
-// use time::OffsetDateTime;
 
 #[derive(Parser)]
+#[clap(
+	name = "teg",
+	about = "A command-line client for the Tesla Backup Gateway 2.",
+	version
+)]
 struct Arguments {
+	/// IP Address of the Tesla Backup Gateway 2.
 	ip_address: IpAddr,
+
+	/// Path to a PEM file containing the certificate for the Tesla Backup
+	/// Gateway 2.
 	certificate: PathBuf,
 }
 
