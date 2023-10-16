@@ -107,7 +107,7 @@ mod tests {
 	use super::SystemStatus;
 
 	#[test]
-	fn parse_system_status() {
+	fn deserialize_system_status() {
 		let sample = include_bytes!("../samples/api-system_status.json");
 		let _: SystemStatus = serde_json::from_slice(sample).unwrap();
 	}

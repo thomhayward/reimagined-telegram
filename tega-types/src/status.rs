@@ -28,3 +28,17 @@ pub const DATETIME_FORMAT: &[FormatItem<'_>] = time::macros::format_description!
 );
 
 time::serde::format_description!(datetime, OffsetDateTime, DATETIME_FORMAT);
+
+#[cfg(test)]
+mod tests {
+	use super::Status;
+
+	#[test]
+	fn deserialize_status() {
+		let sample = include_bytes!("../samples/api-status.json");
+		let status: Status = serde_json::from_slice(sample).unwrap();
+
+		assert_eq!(status.din, "1152100-13-J--AB123456C7D8EF");
+		assert_eq!(status.version, "23.12.11 452c76cb");
+	}
+}

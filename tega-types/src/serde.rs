@@ -1,17 +1,6 @@
 pub mod duration {
 	//! Module for serializing and deserializing [`Duration`] from strings of
 	//! the form '{hours}h{minutes}m{seconds}s'.
-	//!
-	//! # Examples
-	//! ```
-	//! #[derive(serde::Deserialize, serde::Serialize)]
-	//! struct Status {
-	//!     #[serde(with = "tega_types::duration")]
-	//!     uptime: std::time::Duration
-	//! }
-	//! ```
-	//!
-	//! [`Duration`]: std::time::Duration
 	use std::{sync::OnceLock, time::Duration};
 
 	const SECONDS_PER_HOUR: f64 = 3600f64;
@@ -75,7 +64,7 @@ pub mod duration {
 		}
 
 		#[test]
-		fn can_deserialize() {
+		fn deserialize() {
 			let s: Test = serde_json::from_str(r#"{"value":"12h54m37.123432s"}"#).unwrap();
 			assert_eq!(s.value, Duration::from_secs_f64(46477.123432));
 		}
@@ -84,15 +73,6 @@ pub mod duration {
 
 pub mod hash {
 	//! Module for serializing and deserializing hex-encoded SHA1 hashes.
-	//!
-	//! # Examples
-	//! ```
-	//! #[derive(serde::Deserialize, serde::Serialize)]
-	//! struct Status {
-	//!    #[serde(with = "tega_types::hash")]
-	//!    git_hash: [u8; 20]
-	//! }
-	//! ```
 	use data_encoding::HEXLOWER;
 
 	pub fn deserialize<'de, D>(deserializer: D) -> Result<[u8; 20], D::Error>

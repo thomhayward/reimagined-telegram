@@ -169,7 +169,7 @@ mod tests {
 	use super::MetersAggregates;
 
 	#[test]
-	fn deserialize_meters_aggregates_sample() {
+	fn deserialize_meters_aggregates() {
 		let sample = include_bytes!("../samples/api-meters-aggregates.json");
 		let meters: MetersAggregates = serde_json::from_slice(sample).unwrap();
 
