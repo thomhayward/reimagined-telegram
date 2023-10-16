@@ -1,7 +1,6 @@
-use std::iter;
-
 use crate::{Float, OffsetDateTime};
 use serde::{Deserialize, Serialize};
+use std::iter;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AggregateClass {
@@ -69,7 +68,10 @@ pub struct AggregateMeterDevice {
 	pub i_b_current: Float,
 	pub i_c_current: Float,
 
+	/// Total energy exported from the device over it's lifetime.
 	pub energy_exported: Float,
+
+	/// Total energy imported by the device over it's lifetime.
 	pub energy_imported: Float,
 
 	#[serde(with = "time::serde::rfc3339")]
@@ -90,6 +92,10 @@ pub struct AggregateMeterDevice {
 }
 
 impl MetersAggregates {
+	/// Returns an iterator over all the devices that are currently
+	/// drawing/using power.
+	///
+	/// 'Load' will _always_ be included.
 	pub fn sinks(&self) -> impl Iterator<Item = (AggregateClass, &AggregateMeterDevice)> {
 		assert!(self.load.instant_power.is_sign_positive());
 
@@ -122,6 +128,8 @@ impl MetersAggregates {
 		})
 	}
 
+	/// Returns an iterator over all the devices which are currently supplying
+	/// power.
 	pub fn sources(&self) -> impl Iterator<Item = (AggregateClass, &AggregateMeterDevice)> {
 		let sinks = [
 			self.grid
@@ -161,8 +169,8 @@ mod tests {
 	use super::MetersAggregates;
 
 	#[test]
-	fn parse_meters_aggregates_sample() {
-		let sample = include_bytes!("../../samples/api-meters-aggregates.json");
+	fn deserialize_meters_aggregates_sample() {
+		let sample = include_bytes!("../samples/api-meters-aggregates.json");
 		let meters: MetersAggregates = serde_json::from_slice(sample).unwrap();
 
 		assert_eq!(meters.sources().count(), 2);

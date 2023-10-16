@@ -4,7 +4,9 @@ version = "0.0.0"
 edition = "2021"
 
 [dependencies]
+data-encoding = "2.4.0"
 protobuf = { version = "3.3.0", features = ["bytes"] }
+regex = "1.10.0"
 serde = { version = "1", features = ["derive"] }
 time = { version = "0.3", features = ["formatting", "parsing", "serde"] }
 

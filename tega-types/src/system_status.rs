@@ -2,6 +2,7 @@ use crate::Float;
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
 
+/// Payload returned from the `/api/system_status` endpoint.
 #[derive(Debug, Deserialize, Serialize)]
 pub struct SystemStatus {
 	pub command_source: String,
@@ -92,13 +93,22 @@ pub struct BatteryBlock {
 	pub version: String,
 }
 
+/// Payload returned from the `/api/system_status/soe` endpoint.
+///
+/// `percentage` is the aggregated charged state in percent of all the
+/// Powerwalls in the system.
+#[derive(Debug, Deserialize, Serialize)]
+pub struct StateOfEnergy {
+	pub percentage: f64,
+}
+
 #[cfg(test)]
 mod tests {
 	use super::SystemStatus;
 
 	#[test]
 	fn parse_system_status() {
-		let sample = include_bytes!("../../samples/api-system_status.json");
+		let sample = include_bytes!("../samples/api-system_status.json");
 		let _: SystemStatus = serde_json::from_slice(sample).unwrap();
 	}
 }

@@ -1,5 +1,6 @@
 [workspace]
 members = [
+	"tega-bin",
 	"tega-client",
 	"tega-types"
 ]
