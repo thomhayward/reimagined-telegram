@@ -6,13 +6,15 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.75"
 clap = { version = "4.4.6", features = ["derive"] }
+pem = "3.0.2"
 reqwest = { version = "0.11.22", features = ["native-tls"], default-features = false }
 rustls = { version = "0.21.6", features = ["dangerous_configuration"] }
 rustls-pemfile = "1.0"
 serde_json = "1.0.107"
 tega-client = { version = "0.0.0", path = "../tega-client" }
 time = "0.3.30"
-tokio = { version = "1.33.0", features = ["macros", "rt"] }
+tokio = { version = "1.33.0", features = ["macros", "rt", "sync"] }
+webpki = "0.22.4"
 
 [[bin]]
 name = "teg"
